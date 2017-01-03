@@ -1,0 +1,6 @@
+---
+applications:
+- name: book-lister
+  memory: 64M
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  path: build

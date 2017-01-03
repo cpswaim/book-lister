@@ -1,0 +1,16 @@
+@import '../../theme-variables';
+
+.banner.navbar {
+	background-color: $theme-primary;
+	.navbar-header .title {
+		cursor: pointer;
+	}
+    .btn-refresh {
+        margin-right: 10px;
+        padding: 8px 15px;
+        float: right;
+        background-color: #FFF;
+        color: $theme-primary;
+        text-transform: none;
+    }
+}

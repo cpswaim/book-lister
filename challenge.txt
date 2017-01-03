@@ -1,0 +1,48 @@
+ReadWorks Technical Challenge
+
+The API
+=======
+
+We have provided an API for retrieving records that represent popular programming books.  The API can be found at:
+
+http://development.readworks.org/v2/books
+
+This API only accepts GET requests.  It is also uses CORS, so you should have no cross-domain issues when accessing it.
+
+You *must* provide two URL parameters to this API when calling it:
+
+'start' - The index from which to start grabbing records (0 indexed, like an Array).
+'count' - The amount of records to retrieve from the given start index.
+
+This API will return a JSON array containing objects of the following format:
+
+{
+  "title": "...",
+  "author": "...",
+  "year_publish": "..."
+}
+
+ex: http://development.readworks.org/v2/books?start=0&count=1
+
+HTTP 200 [{"title":"Cracking the Coding Interview","author":"Gayle Laakmann McDowell","year_published":"2015"}]
+
+If you specify a 'start' parameter that is higher than the total number of books we have on file, an empty array will be returned.
+
+If you specify a 'count' parameter that would extend higher than the total number of books we have on file, then books up to the end will be returned without an error.  (ie: in a situation where the system has 20 total books, http://development.readworks.org/v2/books?start=0&count=10000 is valid and will return 20 books)
+
+If either 'start' or 'count' is invalid or missing, the API will return with an HTTP status of 400, and a body in the following format:
+
+{
+  "fields": ['invalidField1', ...]
+}
+
+ex: http://development.readworks.org/v2/books?start=dfgdfgd&count=dfgdfgd
+
+HTTP 400 {"fields":["start","count"]}
+
+It's important to note that our list of popular programming books will never change.
+
+Your Goal
+=========
+
+Your goal is to create a web app that can display a paginated list of books from our API.  You must display 5 books to a full page.  Your UI should display all of the returned details about each book, and you should have some way to step back\forward through each page - no need to include a way to jump between pages.  Also, please do not "wrap" the list (there should be no back button on the first page, and there should be no next button on the last page).
