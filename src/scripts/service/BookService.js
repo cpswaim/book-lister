@@ -18,7 +18,22 @@ class BookService {
         return fetch(`${this.host}${route}?start=${start}&count=${pageSize}`, config)
             .then(function(response) {
                 // Return JSON body of response
-                return new Promise((resolve, reject) => resolve(response.json()));
+                return response.json().then((json) => {
+                    let body = json;
+                    if (!response.ok || response.status >= 400) {
+                        body = Object.assign(body || {}, {
+                            success: false
+                        });
+                    }
+                    return Promise.resolve(body);
+                });
+                // return new Promise((resolve, reject) => resolve(body));
+            }).catch(function(error) {
+                console.error(error);
+                return Promise.resolve({
+                    success: false,
+                    message: 'Network or permissions error'
+                });
             });
     }
 }

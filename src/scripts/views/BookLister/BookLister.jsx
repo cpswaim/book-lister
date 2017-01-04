@@ -21,7 +21,7 @@ class BookLister extends Component {
             onNextPageClick,
             onPreviousPageClick
         } = this.props;
-        let currentBooks = books[page];
+        let currentBooks = books[page] || [];
 
         return (
             <div className='application container'>
